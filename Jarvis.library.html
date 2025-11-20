@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarvis Digital Library</title>
+    <style>
+        /* --- LIBRARY THEME --- */
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --accent: #10b981; /* Changed to Green for "Free/Download" feel */
+            --accent-hover: #059669;
+        }
+        
+        body { 
+            margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; 
+            background: var(--bg); color: var(--text); 
+        }
+
+        /* Header */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 5%; background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid #334155; position: sticky; top: 0; z-index: 10;
+        }
+        .brand { font-size: 1.5rem; font-weight: bold; color: var(--text); }
+        .brand span { color: var(--accent); }
+        
+        /* Layout */
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .hero { text-align: center; padding: 3rem 0; border-bottom: 1px solid #334155; margin-bottom: 3rem; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .hero p { color: #94a3b8; font-size: 1.1rem; }
+
+        /* Grid */
+        .library-grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 2rem; 
+        }
+        
+        /* Book Card */
+        .book-card {
+            background: var(--card); border-radius: 12px; overflow: hidden;
+            border: 1px solid #334155; display: flex; flex-direction: column;
+            transition: transform 0.2s;
+        }
+        .book-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        
+        .card-icon {
+            height: 160px; background: #020617; display: flex;
+            align-items: center; justify-content: center; font-size: 3rem;
+        }
+        
+        .card-details { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .book-title { font-size: 1.25rem; margin-bottom: 0.5rem; font-weight: bold; }
+        .book-desc { color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem; flex-grow: 1; }
+        
+        /* Download Button */
+        .download-btn {
+            display: flex; justify-content: center; align-items: center; gap: 0.5rem;
+            width: 100%; padding: 0.8rem;
+            background: var(--accent); color: white; 
+            text-decoration: none; border-radius: 6px; font-weight: 600;
+            transition: background 0.2s;
+        }
+        .download-btn:hover { background: var(--accent-hover); }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="brand">Jarvis<span>.Library</span></div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Free eBook Collection</h1>
+            <p>Direct downloads. No sign-up required.</p>
+        </div>
+
+        <div class="library-grid" id="book-grid">
+            </div>
+    </div>
+
+    <script>
+        // --- LIBRARY CONFIGURATION ---
+        
+        const books = [
+            {
+                title: "Ikigai",
+                subtitle: "The Japanese Secret to a Long and Happy Life",
+                description: "Discover the Japanese concept of a reason for being. A guide to finding your purpose and living a balanced life.",
+                emoji: "🌸", 
+                // URL provided by you:
+                link: "https://dn790007.ca.archive.org/0/items/ikigai-the-japanese-secret-to-a-long-and-happy-life-pdfdrive.com/Ikigai%20_%20the%20Japanese%20secret%20to%20a%20long%20and%20happy%20life%20%28%20PDFDrive.com%20%29.pdf"
+            },
+            {
+                title: "Half Girlfriend",
+                subtitle: "Chetan Bhagat",
+                description: "A classic novel about a shepherd boy specifically searching for a worldly treasure.",
+                emoji: "⚗️",
+                // URL provided by you:
+                link: "https://drive.google.com/file/d/0By9wjQndHrkTZHFUS29RbFE2LWc/edit?resourcekey=0-9tnzqdUjnqLgrbqGgIx45g"
+            }
+        ];
+
+        // --- RENDER LOGIC ---
+        const grid = document.getElementById('book-grid');
+
+        books.forEach(book => {
+            const card = document.createElement('div');
+            card.className = 'book-card';
+            card.innerHTML = `
+                <div class="card-icon">${book.emoji}</div>
+                <div class="card-details">
+                    <div class="book-title">${book.title}</div>
+                    <div style="font-size:0.9rem; color:#cbd5e1; margin-bottom:0.5rem"><em>${book.subtitle}</em></div>
+                    <p class="book-desc">${book.description}</p>
+                    <a href="${book.link}" target="_blank" class="download-btn">
+                        <span>📄</span> Read / Download
+                    </a>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
